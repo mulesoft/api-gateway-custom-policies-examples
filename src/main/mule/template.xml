@@ -10,18 +10,22 @@
     <http-policy:proxy name="{{{policyId}}}-custom-policy">
         <http-policy:source>
             <http-policy:execute-next/>
-            {{#if statusCode}}
-            <set-variable variableName="statusCode" value="{{statusCode}}" />
-            {{/if}}
+            <choice>
+                <when expression="{{{condition}}}" >
+                    {{#if statusCode}}
+                    <set-variable variableName="statusCode" value="{{statusCode}}" />
+                    {{/if}}
 
-            <http-transform:set-response statusCode="#[vars.statusCode default attributes.statusCode]">
-                {{#if payload}}
-                <http-transform:body>
-                    #[output application/json --- {{payload}}]
-                </http-transform:body>
-                {{/if}}
-            </http-transform:set-response>
+                    {{#if payload}}
+                    <set-variable variableName="payload" value="{{{payload}}}" />
+                    {{/if}}
 
+                    <http-transform:set-response statusCode="#[vars.statusCode default attributes.statusCode]">
+                        <http-transform:body>#[vars.payload default payload]</http-transform:body>
+                        <http-transform:headers>#[attributes.headers]</http-transform:headers>
+                    </http-transform:set-response>
+                </when>
+            </choice>
         </http-policy:source>
     </http-policy:proxy>
 </mule>

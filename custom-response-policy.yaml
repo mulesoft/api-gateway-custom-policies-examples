@@ -1,6 +1,6 @@
 id: Custom Response
 name: Custom Response
-description: Asd
+description: Modifies the payload and/or the status code when some condition is met.
 category: Custom
 type: custom
 resourceLevelSupported: true
@@ -9,16 +9,27 @@ standalone: true
 requiredCharacteristics: []
 providedCharacteristics: []
 configuration:
+  - propertyName: condition
+    name: Condition
+    description: Dataweave expression that will be evaluated to define if the request should be modified.
+    type: expression
+    optional: false
+    sensitive: false
+    allowMultiple: false
   - propertyName: statusCode
     name: Status Code
     type: int
-    optional: false
+    minimumValue: 0
+    maximumValue: 999
+    description: Status code to return when the condition is met.
+    optional: true
     sensitive: false
     allowMultiple: false
   - propertyName: payload
     name: Payload
-    type: string
-    optional: false
-    sensitive: true
+    type: expression
+    description: Expression that sets the payload to return when the condition is met.
+    optional: true
+    sensitive: false
     allowMultiple: false
 
