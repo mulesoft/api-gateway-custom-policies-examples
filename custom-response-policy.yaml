@@ -1,0 +1,24 @@
+id: Custom Response
+name: Custom Response
+description: Asd
+category: Custom
+type: custom
+resourceLevelSupported: true
+encryptionSupported: false
+standalone: true
+requiredCharacteristics: []
+providedCharacteristics: []
+configuration:
+  - propertyName: statusCode
+    name: Status Code
+    type: int
+    optional: false
+    sensitive: false
+    allowMultiple: false
+  - propertyName: payload
+    name: Payload
+    type: string
+    optional: false
+    sensitive: true
+    allowMultiple: false
+
