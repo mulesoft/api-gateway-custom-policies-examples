@@ -9,6 +9,12 @@ standalone: true
 requiredCharacteristics: []
 providedCharacteristics: []
 configuration:
+  - propertyName: conditionInTheResponse
+    name: Evaluate in the response
+    description: If the condition should be evaluated in the response.
+    type: boolean
+    optional: true
+    defaultValue: true
   - propertyName: condition
     name: Condition
     description: Dataweave expression that will be evaluated to define if the request should be modified.

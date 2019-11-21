@@ -9,9 +9,17 @@
 
     <http-policy:proxy name="{{{policyId}}}-custom-policy">
         <http-policy:source>
+
+            {{#unless conditionInTheResponse}}
+            <set-variable variableName="conditionMet" value="{{{condition}}}" />
+            {{/unless}}
             <http-policy:execute-next/>
+            {{#if conditionInTheResponse}}
+            <set-variable variableName="conditionMet" value="{{{condition}}}" />
+            {{/if}}
+
             <choice>
-                <when expression="{{{condition}}}" >
+                <when expression="#[vars.conditionMet]" >
                     {{#if statusCode}}
                     <set-variable variableName="statusCode" value="{{statusCode}}" />
                     {{/if}}
