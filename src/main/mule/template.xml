@@ -10,16 +10,17 @@
     <http-policy:proxy name="{{{policyId}}}-custom-policy">
         <http-policy:source>
 
-            {{#unless conditionInTheResponse}}
-            <set-variable variableName="conditionMet" value="{{{condition}}}" />
-            {{/unless}}
+            {{#if evaluateInRequest}}
+            <set-variable variableName="requestConditionMet" value="{{{requestCondition}}}" />
+            {{/if}}
             <http-policy:execute-next/>
-            {{#if conditionInTheResponse}}
-            <set-variable variableName="conditionMet" value="{{{condition}}}" />
+            {{#if evaluateInResponse}}
+            <set-variable variableName="responseConditionMet" value="{{{responseCondition}}}" />
             {{/if}}
 
             <choice>
-                <when expression="#[vars.conditionMet]" >
+                {{#if mergeBothConditions}}
+                <when expression="#[(vars.requestConditionMet default false) and (vars.responseConditionMet default false)]" >
                     {{#if statusCode}}
                     <set-variable variableName="statusCode" value="{{statusCode}}" />
                     {{/if}}
@@ -33,6 +34,22 @@
                         <http-transform:headers>#[attributes.headers]</http-transform:headers>
                     </http-transform:set-response>
                 </when>
+                {{else}}
+                <when expression="#[(vars.requestConditionMet default false) or (vars.responseConditionMet default false)]" >
+                    {{#if statusCode}}
+                    <set-variable variableName="statusCode" value="{{statusCode}}" />
+                    {{/if}}
+
+                    {{#if payload}}
+                    <set-variable variableName="payload" value="{{{payload}}}" />
+                    {{/if}}
+
+                    <http-transform:set-response statusCode="#[vars.statusCode default attributes.statusCode]">
+                        <http-transform:body>#[vars.payload default payload]</http-transform:body>
+                        <http-transform:headers>#[attributes.headers]</http-transform:headers>
+                    </http-transform:set-response>
+                </when>
+                {{/if}}
             </choice>
         </http-policy:source>
     </http-policy:proxy>
