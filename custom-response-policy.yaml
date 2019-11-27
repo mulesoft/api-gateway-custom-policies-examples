@@ -41,7 +41,7 @@ configuration:
     dependsOnValue: true
   - propertyName: mergeBothConditions
     name: Merge both conditions
-    description: If configured, both conditions must match in order to perform modifications to the response.
+    description: Check if both request and response conditions need to be met.
     type: boolean
     optional: true
     defaultValue: false
