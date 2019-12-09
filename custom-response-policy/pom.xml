@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>3f1725ca-2a67-4cba-a73f-f3880325eeaf</groupId>
+    <artifactId>custom-response-policy</artifactId>
+    <version>1.0.0</version>
+
+    <name>Custom Response</name>
+    <description>Modifies the payload and/or the status code when some condition is met</description>
+
+    <packaging>mule-policy</packaging>
+
+    <properties>
+        <mule.maven.plugin.version>3.2.7</mule.maven.plugin.version>
+        <exchange.url>https://maven.qax.anypoint.mulesoft.com/api/v1/organizations/3f1725ca-2a67-4cba-a73f-f3880325eeaf/maven</exchange.url>
+        <httpPolicyTransformVersion>2.0.0</httpPolicyTransformVersion>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.mule.tools.maven</groupId>
+                <artifactId>mule-maven-plugin</artifactId>
+                <version>${mule.maven.plugin.version}</version>
+                <extensions>true</extensions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>upload-template</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>deploy-file</goal>
+                        </goals>
+                        <configuration>
+                            <repositoryId>thor_qax</repositoryId>
+                            <url>${exchange.url}</url>
+                            <file>${project.basedir}/${project.artifactId}.yaml</file>
+                            <generatePom>false</generatePom>
+                            <groupId>${project.groupId}</groupId>
+                            <artifactId>${project.artifactId}</artifactId>
+                            <version>${project.version}</version>
+                            <packaging>yaml</packaging>
+                            <classifier>policy-definition</classifier>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.mulesoft.anypoint</groupId>
+            <artifactId>mule-http-policy-transform-extension</artifactId>
+            <version>${httpPolicyTransformVersion}</version>
+            <classifier>mule-plugin</classifier>
+        </dependency>
+    </dependencies>
+
+    <distributionManagement>
+        <repository>
+            <id>thor_qax</id>
+            <name>Thor Odinson QAX</name>
+            <url>${exchange.url}</url>
+            <layout>default</layout>
+        </repository>
+    </distributionManagement>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>mule-plugin</id>
+            <name>Mule Repository</name>
+            <url>https://repository.mulesoft.org/nexus/content/repositories/public/</url>
+        </pluginRepository>
+    </pluginRepositories>
+</project>
