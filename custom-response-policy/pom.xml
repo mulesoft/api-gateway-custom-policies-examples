@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>3f1725ca-2a67-4cba-a73f-f3880325eeaf</groupId>
+    <groupId>YOUR_GROUP_ID</groupId>
     <artifactId>custom-response-policy</artifactId>
     <version>1.0.0</version>
 
@@ -15,7 +15,7 @@
 
     <properties>
         <mule.maven.plugin.version>3.2.7</mule.maven.plugin.version>
-        <exchange.url>https://maven.anypoint.mulesoft.com/api/v1/organizations/3f1725ca-2a67-4cba-a73f-f3880325eeaf/maven</exchange.url>
+        <exchange.url>https://maven.anypoint.mulesoft.com/api/v1/organizations/YOUR_GROUP_ID/maven</exchange.url>
         <httpPolicyTransformVersion>3.0.0</httpPolicyTransformVersion>
     </properties>
 
@@ -38,7 +38,7 @@
                             <goal>deploy-file</goal>
                         </goals>
                         <configuration>
-                            <repositoryId>thor_qax</repositoryId>
+                            <repositoryId>exchange-server</repositoryId>
                             <url>${exchange.url}</url>
                             <file>${project.basedir}/${project.artifactId}.yaml</file>
                             <generatePom>false</generatePom>
