@@ -13,44 +13,33 @@
             {{#if evaluateInRequest}}
             <set-variable variableName="requestConditionMet" value="{{{requestCondition}}}" />
             {{/if}}
+            
             <http-policy:execute-next/>
+            
             {{#if evaluateInResponse}}
             <set-variable variableName="responseConditionMet" value="{{{responseCondition}}}" />
             {{/if}}
 
             <choice>
-                {{#if mergeBothConditions}}
-                <when expression="#[(vars.requestConditionMet default false) and (vars.responseConditionMet default false)]" >
-                    {{#if statusCode}}
-                    <set-variable variableName="statusCode" value="{{statusCode}}" />
-                    {{/if}}
-
-                    {{#if payload}}
-                    <set-variable variableName="payload" value="{{{payload}}}" />
-                    {{/if}}
-
-                    <http-transform:set-response statusCode="#[vars.statusCode default attributes.statusCode]">
-                        <http-transform:body>#[vars.payload default payload]</http-transform:body>
+                <when expression="#[
+                    (vars.requestConditionMet default false) 
+                        {{#if mergeBothConditions}} and {{else}} or {{/if}}
+                    (vars.responseConditionMet default false)]" >
+                                    
+                    <http-transform:set-response statusCode="#[
+                            {{#if statusCode}}
+                                {{{statusCode}}}
+                            {{else}}
+                                attributes.statusCode
+                            {{/if}}]">
+                        {{#if payload}}
+                        <http-transform:body>{{{payload}}}</http-transform:body>
+                        {{/if}}
                         <http-transform:headers>#[attributes.headers]</http-transform:headers>
                     </http-transform:set-response>
                 </when>
-                {{else}}
-                <when expression="#[(vars.requestConditionMet default false) or (vars.responseConditionMet default false)]" >
-                    {{#if statusCode}}
-                    <set-variable variableName="statusCode" value="{{statusCode}}" />
-                    {{/if}}
-
-                    {{#if payload}}
-                    <set-variable variableName="payload" value="{{{payload}}}" />
-                    {{/if}}
-
-                    <http-transform:set-response statusCode="#[vars.statusCode default attributes.statusCode]">
-                        <http-transform:body>#[vars.payload default payload]</http-transform:body>
-                        <http-transform:headers>#[attributes.headers]</http-transform:headers>
-                    </http-transform:set-response>
-                </when>
-                {{/if}}
             </choice>
+
         </http-policy:source>
     </http-policy:proxy>
 </mule>
