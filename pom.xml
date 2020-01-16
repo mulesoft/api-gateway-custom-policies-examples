@@ -14,6 +14,7 @@
 
     <modules>
         <module>custom-response-policy</module>
+        <module>set-authentication-policy</module>
     </modules>
 
 </project>

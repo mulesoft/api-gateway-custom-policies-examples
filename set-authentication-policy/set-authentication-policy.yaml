@@ -1,0 +1,37 @@
+id: Set Authentication Custom Policy Example
+name: Set Authentication Custom Policy Example
+description: Sets authentication data of the Mule Event to propagate information using the flow pipeline
+category: Custom
+type: custom
+resourceLevelSupported: true
+encryptionSupported: false
+standalone: true
+requiredCharacteristics: []
+providedCharacteristics: []
+configuration:
+  - propertyName: authPrincipal
+    name: Principal
+    type: string
+    optional: false
+    sensitive: false
+    allowMultiple: false
+  - propertyName: authCredentials
+    name: Password
+    type: string
+    optional: false
+    sensitive: true
+    allowMultiple: false
+  - propertyName: authClientIdPropertyValue
+    name: ClientIdValue
+    type: string
+    optional: false
+    sensitive: false
+    allowMultiple: false
+  - propertyName: otherPropertyValue
+    name: OtherValue
+    type: string
+    optional: false
+    sensitive: false
+    allowMultiple: false
+
+
