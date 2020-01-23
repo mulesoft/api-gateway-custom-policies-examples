@@ -9,29 +9,32 @@ standalone: true
 requiredCharacteristics: []
 providedCharacteristics: []
 configuration:
-  - propertyName: authPrincipal
-    name: Principal
-    type: string
+  - propertyName: principalExpression
+    name: Principal Expression
+    description: Mule Expression to be used to extract the Authentication Principal value from API requests
+    type: expression
+    defaultValue: "#[attributes.headers['agw_auth_principal']]"
     optional: false
     sensitive: false
     allowMultiple: false
-  - propertyName: authCredentials
-    name: Password
-    type: string
-    optional: false
-    sensitive: true
-    allowMultiple: false
-  - propertyName: authClientIdPropertyValue
-    name: ClientIdValue
-    type: string
+    dependsOnUnfulfilledDefaultValue: "#[attributes.headers['agw_auth_principal']]"
+  - propertyName: credentialsExpression
+    name: Credentials Expression
+    description: Mule Expression to be used to extract the Authentication Credentials value from API requests
+    type: expression
+    defaultValue: "#[attributes.headers['agw_auth_credentials']]"
     optional: false
     sensitive: false
     allowMultiple: false
-  - propertyName: otherPropertyValue
-    name: OtherValue
-    type: string
+    dependsOnUnfulfilledDefaultValue: "#[attributes.headers['agw_auth_credentials']]"
+  - propertyName: propertiesExpression
+    name: Properties Expression
+    description: Mule Expression to be used to extract the Authentication property values from API requests
+    type: expression
+    defaultValue: "#[attributes.headers['agw_auth_props']]"
     optional: false
     sensitive: false
     allowMultiple: false
+    dependsOnUnfulfilledDefaultValue: "#[attributes.headers filterObject ($$ startsWith 'agw_prop_')]"
 
 

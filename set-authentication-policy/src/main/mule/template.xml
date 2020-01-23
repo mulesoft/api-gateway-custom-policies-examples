@@ -2,29 +2,22 @@
 <mule xmlns="http://www.mulesoft.org/schema/mule/core"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xmlns:http-policy="http://www.mulesoft.org/schema/mule/http-policy"
+      xmlns:authentication="http://www.mulesoft.org/schema/mule/authentication"
+      xmlns:http-transform="http://www.mulesoft.org/schema/mule/http-policy-transform"
       xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
                http://www.mulesoft.org/schema/mule/http-policy http://www.mulesoft.org/schema/mule/http-policy/current/mule-http-policy.xsd
                http://www.mulesoft.org/schema/mule/authentication http://www.mulesoft.org/schema/mule/authentication/current/mule-authentication.xsd
-               http://www.mulesoft.org/schema/mule/http-policy-transform http://www.mulesoft.org/schema/mule/http-policy-transform/current/mule-http-policy-transform.xsd"">
+               http://www.mulesoft.org/schema/mule/http-policy-transform http://www.mulesoft.org/schema/mule/http-policy-transform/current/mule-http-policy-transform.xsd">
 
 
     <http-policy:proxy name="{{{policyId}}}-custom-policy">
         <http-policy:source>
             <try>
-                <authentication:set-authentication principal="{{authPrincipal}}" credentials="{{authCredentials}}"
-                                                   properties="#[{
-                                                       'clientId': '{{authClientIdPropertyValue}}',
-                                                       'otherProperty': '{{otherPropertyValue}}'
-                                                   }]"/>
+                <authentication:set-authentication principal="{{{principalExpression}}}"
+                                                   credentials="{{{credentialsExpression}}}"
+                                                   properties="{{{propertiesExpression}}}"/>
 
                 <http-policy:execute-next/>
-
-                <http-transform:set-response statusCode="777">
-                    <http-transform:headers>#[{
-                        'clientId': authentication.properties['clientId'] as String,
-                        'otherProperty': authentication.properties['otherProperty'] as String
-                        }]</http-transform:headers>
-                </http-transform:set-response>
 
                 <error-handler>
                     <on-error-continue logException="true">
@@ -41,4 +34,5 @@
             </try>
         </http-policy:source>
     </http-policy:proxy>
+
 </mule>
