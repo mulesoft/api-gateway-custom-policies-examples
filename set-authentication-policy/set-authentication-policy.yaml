@@ -31,7 +31,7 @@ configuration:
     name: Properties Expression
     description: Mule Expression to be used to extract the Authentication property values from API requests
     type: expression
-    defaultValue: "#[attributes.headers['agw_auth_props']]"
+    defaultValue: "#[attributes.headers filterObject ($$ startsWith 'agw_prop_')]"
     optional: false
     sensitive: false
     allowMultiple: false
