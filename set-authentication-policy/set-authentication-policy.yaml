@@ -1,6 +1,6 @@
-id: Set Authentication Custom Policy Example
-name: Set Authentication Custom Policy Example
-description: Sets authentication data of the Mule Event to propagate information using the flow pipeline
+id: Set Authentication Client ID Custom Policy Example
+name: Set Authentication Client ID Custom Policy Example
+description: Sets client ID data of the Mule Event to propagate information using the flow pipeline
 category: Custom
 type: custom
 resourceLevelSupported: true
@@ -9,32 +9,14 @@ standalone: true
 requiredCharacteristics: []
 providedCharacteristics: []
 configuration:
-  - propertyName: principalExpression
-    name: Principal Expression
-    description: Mule Expression to be used to extract the Authentication Principal value from API requests
+  - propertyName: clientIdExpression
+    name: Client ID Expression
+    description: Mule Expression to be used to extract the Client ID value from API requests
     type: expression
-    defaultValue: "#[attributes.headers['agw_auth_principal']]"
+    defaultValue: "#[attributes.headers['agw_client_id']]"
     optional: false
     sensitive: false
     allowMultiple: false
-    dependsOnUnfulfilledDefaultValue: "#[attributes.headers['agw_auth_principal']]"
-  - propertyName: credentialsExpression
-    name: Credentials Expression
-    description: Mule Expression to be used to extract the Authentication Credentials value from API requests
-    type: expression
-    defaultValue: "#[attributes.headers['agw_auth_credentials']]"
-    optional: false
-    sensitive: false
-    allowMultiple: false
-    dependsOnUnfulfilledDefaultValue: "#[attributes.headers['agw_auth_credentials']]"
-  - propertyName: propertiesExpression
-    name: Properties Expression
-    description: Mule Expression to be used to extract the Authentication property values from API requests
-    type: expression
-    defaultValue: "#[attributes.headers filterObject ($$ startsWith 'agw_prop_')]"
-    optional: false
-    sensitive: false
-    allowMultiple: false
-    dependsOnUnfulfilledDefaultValue: "#[attributes.headers filterObject ($$ startsWith 'agw_prop_')]"
+    dependsOnUnfulfilledDefaultValue: "#[attributes.headers['agw_client_id']]"
 
 

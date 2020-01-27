@@ -9,13 +9,14 @@
                http://www.mulesoft.org/schema/mule/authentication http://www.mulesoft.org/schema/mule/authentication/current/mule-authentication.xsd
                http://www.mulesoft.org/schema/mule/http-policy-transform http://www.mulesoft.org/schema/mule/http-policy-transform/current/mule-http-policy-transform.xsd">
 
-
     <http-policy:proxy name="{{{policyId}}}-custom-policy">
         <http-policy:source>
+
+            <!--  This is were the client ID obtainment logic should be added -->
+
             <try>
-                <authentication:set-authentication principal="{{{principalExpression}}}"
-                                                   credentials="{{{credentialsExpression}}}"
-                                                   properties="{{{propertiesExpression}}}"/>
+                <set-variable variableName="clientIdValue" value="{{{clientIdExpression}}}"/>
+                <authentication:add-properties newProperties="#[{'client_id': vars.clientIdValue}]"/>
 
                 <http-policy:execute-next/>
 
