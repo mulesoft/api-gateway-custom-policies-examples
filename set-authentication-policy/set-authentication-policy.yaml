@@ -17,6 +17,5 @@ configuration:
     optional: false
     sensitive: false
     allowMultiple: false
-    dependsOnUnfulfilledDefaultValue: "#[attributes.headers['agw_client_id']]"
 
 

@@ -12,7 +12,7 @@
     <http-policy:proxy name="{{{policyId}}}-custom-policy">
         <http-policy:source>
 
-            <!--  This is were the client ID obtainment logic should be added -->
+            <!--  This is where the client ID obtainment logic should be added -->
 
             <try>
                 <set-variable variableName="clientIdValue" value="{{{clientIdExpression}}}"/>
