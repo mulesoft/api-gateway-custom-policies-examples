@@ -76,6 +76,15 @@
         </plugins>
     </build>
 
+    <repositories>
+        <repository>
+            <id>releases-ee</id>
+            <name>Mule EE Repository</name>
+            <url>https://repository.mulesoft.org/nexus-ee/content/repositories/releases-ee/</url>
+            <layout>default</layout>
+        </repository>
+    </repositories>
+
     <distributionManagement>
         <repository>
             <id>exchange-server</id>
