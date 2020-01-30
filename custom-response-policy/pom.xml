@@ -14,7 +14,7 @@
     <packaging>mule-policy</packaging>
 
     <properties>
-        <mule.maven.plugin.version>3.2.7</mule.maven.plugin.version>
+        <mule.maven.plugin.version>3.3.2</mule.maven.plugin.version>
         <exchange.url>https://maven.anypoint.mulesoft.com/api/v1/organizations/YOUR_GROUP_ID/maven</exchange.url>
         <httpPolicyTransformVersion>3.0.0</httpPolicyTransformVersion>
     </properties>
@@ -62,6 +62,15 @@
             <classifier>mule-plugin</classifier>
         </dependency>
     </dependencies>
+
+    <repositories>
+        <repository>
+            <id>releases-ee</id>
+            <name>Mule EE Repository</name>
+            <url>https://repository.mulesoft.org/nexus-ee/content/repositories/releases-ee/</url>
+            <layout>default</layout>
+        </repository>
+    </repositories>
 
     <distributionManagement>
         <repository>
