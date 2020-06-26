@@ -11,13 +11,23 @@
         <http-policy:source>
 
             {{#if evaluateInRequest}}
-            <set-variable variableName="requestConditionMet" value="{{{requestCondition}}}" />
+            <try>
+                <set-variable variableName="requestConditionMet" value="{{{requestCondition}}}"/>
+                <error-handler>
+                    <on-error-continue type="EXPRESSION"/>
+                </error-handler>
+            </try>
             {{/if}}
             
             <http-policy:execute-next/>
             
             {{#if evaluateInResponse}}
-            <set-variable variableName="responseConditionMet" value="{{{responseCondition}}}" />
+            <try>
+                <set-variable variableName="responseConditionMet" value="{{{responseCondition}}}"/>
+                <error-handler>
+                    <on-error-continue type="EXPRESSION"/>
+                </error-handler>
+            </try>
             {{/if}}
 
             <choice>
