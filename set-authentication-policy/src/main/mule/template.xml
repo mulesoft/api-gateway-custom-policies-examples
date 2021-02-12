@@ -16,7 +16,7 @@
 
             <try>
                 <set-variable variableName="clientIdValue" value="{{{clientIdExpression}}}"/>
-                <authentication:add-properties newProperties="#[{'client_id': vars.clientIdValue}]"/>
+                <authentication:add-properties newProperties="#[{'clientId': vars.clientIdValue}]"/>
 
                 <http-policy:execute-next/>
 
