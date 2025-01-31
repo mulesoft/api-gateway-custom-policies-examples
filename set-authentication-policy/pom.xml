@@ -16,7 +16,7 @@
     <properties>
         <mule.maven.plugin.version>3.3.2</mule.maven.plugin.version>
         <exchange.url>https://maven.anypoint.mulesoft.com/api/v1/organizations/${groupId}/maven</exchange.url>
-        <httpPolicyTransformVersion>3.0.0</httpPolicyTransformVersion>
+        <httpPolicyTransformVersion>4.0.0-MULTIMAP</httpPolicyTransformVersion>
         <authenticationExtensionVersion>1.0.0</authenticationExtensionVersion>
     </properties>
 
